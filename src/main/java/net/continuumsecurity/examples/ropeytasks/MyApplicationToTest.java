@@ -60,42 +60,9 @@ public class MyApplicationToTest extends WebApplication implements ILogin,
         driver.findElement(By.linkText("Profile")).click();
     }
 
-    @Restricted(users = {"bob", "admin"},
-            sensitiveData = "Robert")
-    public void viewProfileForBob() {
-        viewProfile();
-    }
-
-    @Restricted(users = {"alice", "admin"},
-            sensitiveData = "alice@continuumsecurity.net")
-    public void viewProfileForAlice() {
-        viewProfile();
-    }
-
-    @Restricted(users = {"admin"},
-            sensitiveData = "User List")
-    public void viewUserList() {
-        driver.get(Config.getInstance().getBaseUrl() + "admin/list");
-    }
-
     @Override
     public void logout() {
         driver.findElement(By.linkText("Logout")).click();
-    }
-
-    public void search(String query) {
-        driver.findElement(By.linkText("Tasks")).click();
-        driver.findElement(By.id("q")).clear();
-        driver.findElement(By.id("q")).sendKeys(query);
-        driver.findElement(By.id("search")).click();
-    }
-
-    public void navigate() {
-        openLoginPage();
-        login(Config.getInstance().getUsers().getDefaultCredentials());
-        verifyTextPresent("Welcome");
-        viewProfile();
-        search("test");
     }
 
     /*
