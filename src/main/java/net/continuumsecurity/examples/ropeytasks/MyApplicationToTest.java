@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class RopeyTasksApplication extends WebApplication implements ILogin, ILogout {
+public class MyApplicationToTest extends WebApplication implements ILogin, ILogout {
 
        public RopeyTasksApplication() {
            super();
@@ -48,3 +48,4 @@ public class RopeyTasksApplication extends WebApplication implements ILogin, ILo
        } else {
            return false;
        }
+}
