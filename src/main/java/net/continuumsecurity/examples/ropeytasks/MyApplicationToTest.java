@@ -20,6 +20,11 @@ import java.util.Map;
 import java.util.Properties;
 
 public class MyApplicationToTest extends WebApplication implements ILogin,ILogout {
+     
+      public RopeyTasksApplication() {
+        super();
+    }
+     
      @Override
      public void openLoginPage() {
         driver.get(Config.getInstance().getBaseUrl() + "user/login");
