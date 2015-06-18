@@ -1,3 +1,21 @@
+package net.continuumsecurity.examples.ropeytasks;
+import net.continuumsecurity.Config;
+import net.continuumsecurity.Credentials;
+import net.continuumsecurity.Restricted;
+import net.continuumsecurity.UserPassCredentials;
+import net.continuumsecurity.behaviour.ICaptcha;
+import net.continuumsecurity.behaviour.ILogin;
+import net.continuumsecurity.behaviour.ILogout;
+import net.continuumsecurity.behaviour.IRecoverPassword;
+import net.continuumsecurity.web.CaptchaSolver;
+import net.continuumsecurity.web.WebApplication;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+
 public class MyApplicationToTest extends WebApplication {
 
     public class MyApplicationToTest() {
