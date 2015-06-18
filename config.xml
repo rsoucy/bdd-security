@@ -13,7 +13,7 @@
     <baseUrl>http://dev-cloud-auto2:7070</baseUrl>
 
     <!-- Base Secure URL of the application to test.  Used for the SSL and the HTTP header tests -->
-    <baseSecureUrl>http://dev-cloud-auto2:7070/universal-inbox/login</baseSecureUrl>
+    <baseSecureUrl>http://dev-cloud-auto2:7070</baseSecureUrl>
 
     <!-- A Java class to hold the Selenium steps to test the application in depth. Optionally required for in-depth selenium testing.-->
     <!--<class>net.continuumsecurity.examples.ropeytasks.RopeyTasksApplication</class>-->
@@ -33,14 +33,13 @@
     <sessionIds>
         <name>JSESSIONID</name>
     </sessionIds>
+      
     <users>
         <user username="donotreply+1515@lifeimage.com" password="lifeimage1_new"/>
-    </users>     
-    <!--<users>
         <user username="alice" password="password"/>
         <user username="bob" password="password"/>
         <user username="admin" password="password"/>
-    </users>-->
+    </users>
 
     <incorrectPassword>SDFsdfwjx1</incorrectPassword>
     <incorrectUsername>bobbles</incorrectUsername>
