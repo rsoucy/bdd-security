@@ -32,9 +32,9 @@ public class RopeyTasksApplication extends WebApplication implements ILogin,
         verifyTextPresent("Login");
     }
 
-   @Override
+  @Override
     public void login(Credentials credentials) {
-    driver.get(baseUrl + "/universal-inbox/login");
+    UserPassCredentials creds = new UserPassCredentials(credentials);
     driver.findElement(By.id("login_username")).clear();
     driver.findElement(By.id("login_username")).sendKeys("donotreply+1515@lifeimage.com");
     driver.findElement(By.id("login_password")).clear();
