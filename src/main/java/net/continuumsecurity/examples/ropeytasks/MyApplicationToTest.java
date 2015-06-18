@@ -1,6 +1,6 @@
 public class MyApplicationToTest extends WebApplication {
 
-    public class RopeyTasksApplication() {
+    public class MyApplicationToTest() {
          super();
     }
 
