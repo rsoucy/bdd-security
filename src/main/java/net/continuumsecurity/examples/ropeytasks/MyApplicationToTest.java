@@ -16,18 +16,35 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class MyApplicationToTest extends WebApplication {
+public class MyApplicationToTest extends WebApplication implements ILogin,ILogout {
+     @Override
+     public void openLoginPage() {
+        driver.get(Config.getInstance().getBaseUrl() + "user/login");
+        verifyTextPresent("Login");
+     }
 
-    public class MyApplicationToTest() {
-         super();
-    }
-
-    public void navigate() {
-        driver.get(Config.getInstance().getBaseUrl());
+     @Override
+     public void login(Credentials credentials) {
+        UserPassCredentials creds = new UserPassCredentials(credentials);
         driver.findElement(By.id("login_username")).clear();
-        driver.findElement(By.id("login_username")).sendKeys('donotreply+1515@lifeimage.com');
+        driver.findElement(By.id("login_username")).sendKeys(creds.getUsername());
         driver.findElement(By.id("login_password")).clear();
-        driver.findElement(By.id("login_password")).sendKeys('lifeimage1_new');
+        driver.findElement(By.id("login_password")).sendKeys(creds.getPassword());
         driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("Log out")).click();
-    }
+     }
+
+     @Override
+     public boolean isLoggedIn() {
+        if (driver.getPageSource().contains("Tasks")) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+     public void navigate() {
+        openLoginPage();
+        login(Config.getInstance().getUsers().getDefaultCredentials());
+        //navigate the app
+     }
+}
