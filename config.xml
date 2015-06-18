@@ -6,17 +6,18 @@
 
     <!-- The web driver to use, can be either Firefox or Chrome.  Optionally specify path to the driver (required for linux)
          Some drivers require a path to the platform specific driver binary, for example chrome needs chromedriver.  If these values are not specified, we'll try auto-detection.
-    <defaultDriver>firefox</defaultDriver>
-    <defaultDriver path="drivers/chromedriver-mac">Chrome</defaultDriver>-->
+    <defaultDriver>firefox</defaultDriver>-->
+    <defaultDriver path="drivers/chromedriver-linux64">Chrome</defaultDriver>
 
     <!-- Base URL of the application to test -->
-    <baseUrl>http://localhost:9090/</baseUrl>
+    <baseUrl>http://dev-cloud-auto2:7070</baseUrl>
 
     <!-- Base Secure URL of the application to test.  Used for the SSL and the HTTP header tests -->
-    <baseSecureUrl>https://www.ssllabs.com/</baseSecureUrl>
+    <baseSecureUrl>http://dev-cloud-auto2:7070/universal-inbox/login</baseSecureUrl>
 
     <!-- A Java class to hold the Selenium steps to test the application in depth. Optionally required for in-depth selenium testing.-->
-    <class>net.continuumsecurity.examples.ropeytasks.RopeyTasksApplication</class>
+    <!--<class>net.continuumsecurity.examples.ropeytasks.RopeyTasksApplication</class>-->
+    <class>net.continuumsecurity.examples.ropeytasks.MyApplicationToTest</class>
 
     <sslyze>/opt/sslyze/sslyze.py --regular</sslyze>
 
