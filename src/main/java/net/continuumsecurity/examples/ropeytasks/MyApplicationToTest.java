@@ -34,13 +34,13 @@ public class MyApplicationToTest extends WebApplication implements ILogin,
 
   @Override
     public void login(Credentials credentials) {
-    UserPassCredentials creds = new UserPassCredentials(credentials);
-    driver.findElement(By.id("login_username")).clear();
-    driver.findElement(By.id("login_username")).sendKeys("donotreply+1515@lifeimage.com");
-    driver.findElement(By.id("login_password")).clear();
-    driver.findElement(By.id("login_password")).sendKeys("lifeimage1_new");
-    driver.findElement(By.name("submit")).click();
-  }
+        UserPassCredentials creds = new UserPassCredentials(credentials);
+        driver.findElement(By.id("login_username")).clear();
+        driver.findElement(By.id("login_username")).sendKeys(creds.getUsername());
+        driver.findElement(By.id("login_password")).clear();
+        driver.findElement(By.id("login_password")).sendKeys(creds.getPassword());
+        driver.findElement(By.name("submit")).click();
+    }
 
   // Convenience method
     public void login(String username, String password) {
