@@ -13,3 +13,4 @@ public class MyApplicationToTest extends WebApplication {
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("Log out")).click();
     }
+}
