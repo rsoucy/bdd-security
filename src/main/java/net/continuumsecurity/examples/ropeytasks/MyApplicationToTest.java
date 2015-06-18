@@ -35,10 +35,10 @@ public class MyApplicationToTest extends WebApplication implements ILogin,
   @Override
     public void login(Credentials credentials) {
         UserPassCredentials creds = new UserPassCredentials(credentials);
-        driver.findElement(By.id("login_username")).clear();
-        driver.findElement(By.id("login_username")).sendKeys(creds.getUsername());
-        driver.findElement(By.id("login_password")).clear();
-        driver.findElement(By.id("login_password")).sendKeys(creds.getPassword());
+        driver.findElement(By.id("j_username")).clear();
+        driver.findElement(By.id("j_username")).sendKeys(creds.getUsername());
+        driver.findElement(By.id("j_password")).clear();
+        driver.findElement(By.id("j_password")).sendKeys(creds.getPassword());
         driver.findElement(By.name("submit")).click();
     }
 
