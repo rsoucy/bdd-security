@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class RopeyTasksApplication extends WebApplication implements ILogin,
+public class MyApplicationToTest extends WebApplication implements ILogin,
         ILogout, IRecoverPassword {
 
-    public RopeyTasksApplication() {
+    public MyApplicationToTest() {
         super();
     }
 
