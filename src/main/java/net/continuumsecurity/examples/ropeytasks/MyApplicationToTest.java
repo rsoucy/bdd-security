@@ -5,7 +5,7 @@ public class MyApplicationToTest extends WebApplication {
     }
 
     public void navigate() {
-        driver.get(baseUrl + "/universal-inbox/login”);
+        driver.get(Config.getInstance().getBaseUrl()+"/universal-inbox/login”);
         driver.findElement(By.id("login_username")).clear();
         driver.findElement(By.id("login_username")).sendKeys("donotreply+1515@lifeimage.com”);
         driver.findElement(By.id("login_password")).clear();
@@ -13,4 +13,3 @@ public class MyApplicationToTest extends WebApplication {
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("Log out")).click();
     }
-}
