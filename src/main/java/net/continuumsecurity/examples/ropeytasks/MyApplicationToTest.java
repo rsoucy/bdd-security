@@ -12,4 +12,5 @@ public class MyApplicationToTest extends WebApplication {
         driver.findElement(By.id("login_password")).sendKeys("lifeimage1_new”);
         driver.findElement(By.name("submit")).click();
         driver.findElement(By.linkText("Log out")).click();
-    }   
+    }
+}
