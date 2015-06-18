@@ -19,91 +19,33 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class MyApplicationToTest extends WebApplication implements ILogin,
-        ILogout, IRecoverPassword {
+public class RopeyTasksApplication extends WebApplication implements ILogin, ILogout {
 
-    public MyApplicationToTest() {
-        super();
-    }
+       public RopeyTasksApplication() {
+           super();
+       }
 
-    @Override
-    public void openLoginPage() {
-        driver.get(Config.getInstance().getBaseUrl() + "/universal-inbox/login");
-        verifyTextPresent("login");
-    }
+       @Override
+       public void openLoginPage() {
+           driver.get(Config.getInstance().getBaseUrl() + "universal-inbox/login");
+           verifyTextPresent("Login");
+       }
 
-  @Override
-    public void login(Credentials credentials) {
-        UserPassCredentials creds = new UserPassCredentials(credentials);
-        driver.findElement(By.id("j_username")).clear();
-        driver.findElement(By.id("j_username")).sendKeys(creds.getUsername());
-        driver.findElement(By.id("j_password")).clear();
-        driver.findElement(By.id("j_password")).sendKeys(creds.getPassword());
-        driver.findElement(By.name("submit")).click();
-    }
+       @Override
+       public void login(Credentials credentials) {
+           UserPassCredentials creds = new UserPassCredentials(credentials);
+           driver.findElement(By.id("login_username")).clear();
+           driver.findElement(By.id("login_username")).sendKeys(creds.getUsername());
+           driver.findElement(By.id("login_password")).clear();
+           driver.findElement(By.id("login_password")).sendKeys(creds.getPassword());
+           driver.findElement(By.name("submit")).click();
+       }
 
-  // Convenience method
-    public void login(String username, String password) {
-        login(new UserPassCredentials(username, password));
-    }
-
-    @Override
-    public boolean isLoggedIn() {
-        if (driver.getPageSource().contains("Tasks")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void viewProfile() {
-        driver.findElement(By.linkText("Profile")).click();
-    }
-
-    @Override
-    public void logout() {
-        driver.findElement(By.linkText("Logout")).click();
-    }
-
-    /*
-     * The details map will be created from the name and value attributes of the
-     * <recoverpassword> tags defined for each user in the config.xml file.
-     *
-     * (non-Javadoc)
-     *
-     * @see
-     * net.continuumsecurity.behaviour.IRecoverPassword#submitRecover(java.util.Map)
-     */
-    @Override
-    public void submitRecover(Map<String, String> details) {
-        driver.get(Config.getInstance().getBaseUrl() + "user/recover");
-        driver.findElement(By.id("email")).sendKeys(details.get("email"));
-        driver.findElement(By.xpath("//input[@value='Recover']")).click();
-    }
-    
-    /*
-        To enable CAPTCHA solving, there should be a deathbycaptcha.properties file in the project root with the format:
-        type=DeathByCaptcha
-        username=deathbycaptcha.com username
-        password=my password
-    @Override
-	public WebElement getCaptchaImage() {
-		return driver.findElement(By.id("recaptcha_challenge_image"));		
-	}
-	@Override
-	public WebElement getCaptchaResponseField() {
-		return driver.findElement(By.id("recaptcha_response_field"));
-	}
-	@Override
-	public void setDefaultSolver() {
-		Properties props = new Properties();
-		try {
-			props.load(new FileInputStream("deathbycaptcha.properties"));
-			setCaptchaSolver(new CaptchaSolver(this, props));
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
-    */
-}
+       @Override
+       public boolean isLoggedIn(String role) {
+           if (driver.getPageSource().contains("lifeIMAGE")) {
+           return true;
+       } else {
+           return false;
+       }
+ }
