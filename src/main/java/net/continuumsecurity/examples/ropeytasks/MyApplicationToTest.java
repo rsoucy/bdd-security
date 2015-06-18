@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class MyApplicationToTest extends WebApplication implements ILogin, 
-          ILogout {
+public class MyApplicationToTest extends WebApplication implements ILogin, ILogout {
      
       public MyApplicationToTest() {
         super();
