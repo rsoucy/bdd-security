@@ -48,4 +48,3 @@ public class RopeyTasksApplication extends WebApplication implements ILogin, ILo
        } else {
            return false;
        }
- }
