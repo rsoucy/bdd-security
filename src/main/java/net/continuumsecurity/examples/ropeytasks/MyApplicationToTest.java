@@ -1,48 +1,39 @@
 package net.continuumsecurity.examples.ropeytasks;
 
-//import net.continuumsecurity.Config;
-//import net.continuumsecurity.Credentials;
-//import net.continuumsecurity.Restricted;
-//import net.continuumsecurity.UserPassCredentials;
-//import net.continuumsecurity.behaviour.ICaptcha;
-//import net.continuumsecurity.behaviour.ILogin;
-//import net.continuumsecurity.behaviour.ILogout;
-//import net.continuumsecurity.behaviour.IRecoverPassword;
-//import net.continuumsecurity.web.CaptchaSolver;
-//import net.continuumsecurity.web.WebApplication;
+import net.continuumsecurity.Config;
+import net.continuumsecurity.Credentials;
+import net.continuumsecurity.Restricted;
+import net.continuumsecurity.UserPassCredentials;
+import net.continuumsecurity.behaviour.ICaptcha;
+import net.continuumsecurity.behaviour.ILogin;
+import net.continuumsecurity.behaviour.ILogout;
+import net.continuumsecurity.behaviour.IRecoverPassword;
+import net.continuumsecurity.web.CaptchaSolver;
+import net.continuumsecurity.web.WebApplication;
 
-//import org.openqa.selenium.By;
-//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+public class RopeyTasksApplication extends WebApplication implements ILogin,
+        ILogout, IRecoverPassword {
 
-public class MyApplicationToTest {
-  private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
+    public RopeyTasksApplication() {
+        super();
+    }
 
-  @Before
-  public void setUp() throws Exception {
-    driver = new FirefoxDriver();
-    baseUrl = "http://dev-cloud-auto2:7070/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-  }
+    @Override
+    public void openLoginPage() {
+        driver.get(Config.getInstance().getBaseUrl() + "user/login");
+        verifyTextPresent("Login");
+    }
 
-  @Test
-  public void testMy() throws Exception {
+   @Override
+    public void login(Credentials credentials) {
     driver.get(baseUrl + "/universal-inbox/login");
     driver.findElement(By.id("login_username")).clear();
     driver.findElement(By.id("login_username")).sendKeys("donotreply+1515@lifeimage.com");
@@ -51,45 +42,101 @@ public class MyApplicationToTest {
     driver.findElement(By.name("submit")).click();
   }
 
-  @After
-  public void tearDown() throws Exception {
-    driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
+  // Convenience method
+    public void login(String username, String password) {
+        login(new UserPassCredentials(username, password));
     }
-  }
 
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
+    @Override
+    public boolean isLoggedIn() {
+        if (driver.getPageSource().contains("Tasks")) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
+    public void viewProfile() {
+        driver.findElement(By.linkText("Profile")).click();
     }
-  }
 
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
+    @Restricted(users = {"bob", "admin"},
+            sensitiveData = "Robert")
+    public void viewProfileForBob() {
+        viewProfile();
     }
-  }
+
+    @Restricted(users = {"alice", "admin"},
+            sensitiveData = "alice@continuumsecurity.net")
+    public void viewProfileForAlice() {
+        viewProfile();
+    }
+
+    @Restricted(users = {"admin"},
+            sensitiveData = "User List")
+    public void viewUserList() {
+        driver.get(Config.getInstance().getBaseUrl() + "admin/list");
+    }
+
+    @Override
+    public void logout() {
+        driver.findElement(By.linkText("Logout")).click();
+    }
+
+    public void search(String query) {
+        driver.findElement(By.linkText("Tasks")).click();
+        driver.findElement(By.id("q")).clear();
+        driver.findElement(By.id("q")).sendKeys(query);
+        driver.findElement(By.id("search")).click();
+    }
+
+    public void navigate() {
+        openLoginPage();
+        login(Config.getInstance().getUsers().getDefaultCredentials());
+        verifyTextPresent("Welcome");
+        viewProfile();
+        search("test");
+    }
+
+    /*
+     * The details map will be created from the name and value attributes of the
+     * <recoverpassword> tags defined for each user in the config.xml file.
+     *
+     * (non-Javadoc)
+     *
+     * @see
+     * net.continuumsecurity.behaviour.IRecoverPassword#submitRecover(java.util.Map)
+     */
+    @Override
+    public void submitRecover(Map<String, String> details) {
+        driver.get(Config.getInstance().getBaseUrl() + "user/recover");
+        driver.findElement(By.id("email")).sendKeys(details.get("email"));
+        driver.findElement(By.xpath("//input[@value='Recover']")).click();
+    }
+    
+    /*
+        To enable CAPTCHA solving, there should be a deathbycaptcha.properties file in the project root with the format:
+        type=DeathByCaptcha
+        username=deathbycaptcha.com username
+        password=my password
+    @Override
+	public WebElement getCaptchaImage() {
+		return driver.findElement(By.id("recaptcha_challenge_image"));		
+	}
+	@Override
+	public WebElement getCaptchaResponseField() {
+		return driver.findElement(By.id("recaptcha_response_field"));
+	}
+	@Override
+	public void setDefaultSolver() {
+		Properties props = new Properties();
+		try {
+			props.load(new FileInputStream("deathbycaptcha.properties"));
+			setCaptchaSolver(new CaptchaSolver(this, props));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+    */
 }
