@@ -40,6 +40,11 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
         driver.findElement(By.id("login_password")).sendKeys("lifeimage1_new");
         driver.findElement(By.name("submit")).click();
      }
+     
+     // Convenience method
+     public void login(String username, String password) {
+          login(new UserPassCredentials(username, password));
+     }
 
      @Override
      public boolean isLoggedIn() {
