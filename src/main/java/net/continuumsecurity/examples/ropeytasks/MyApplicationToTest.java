@@ -27,7 +27,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
      
      @Override
      public void openLoginPage() {
-        driver.get(Config.getInstance().getBaseUrl() + "user/login");
+        driver.get(Config.getInstance().getBaseUrl() + "/universal-inbox/login");
         verifyTextPresent("Login");
      }
 
