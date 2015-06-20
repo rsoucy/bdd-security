@@ -19,11 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-public class MyApplicationToTest extends WebApplication implements ILogin {
-
-       public MyApplicationToTest() {
-           super();
-       }
+public class MyApplicationToTest extends WebApplication implements ILogin,ILogout {
 
        @Override
        public void openLoginPage() {
