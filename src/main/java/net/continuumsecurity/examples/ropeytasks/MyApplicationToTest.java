@@ -23,7 +23,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
      //@Override
      public void openLoginPage() {
         driver.get(Config.getInstance().getBaseUrl() + "universal-inbox/login");
-        verifyTextPresent("Login");
+        //verifyTextPresent("Login");
      }
 
        //@Override
@@ -38,7 +38,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
 
        //@Override
      public boolean isLoggedIn() {
-        if (driver.getPageSource().contains("Tasks")) {
+        if (driver.getPageSource().contains("outbox")) {
             return true;
         } else {
             return false;
