@@ -20,12 +20,11 @@ import java.util.Map;
 import java.util.Properties;
 
 public class MyApplicationToTest extends WebApplication implements ILogin,ILogout {
-
-       @Override
-       public void openLoginPage() {
-           driver.get(Config.getInstance().getBaseUrl() + "universal-inbox/login");
-           verifyTextPresent("Login");
-       }
+     @Override
+     public void openLoginPage() {
+        driver.get(Config.getInstance().getBaseUrl() + "user/login");
+        verifyTextPresent("Login");
+     }
 
        @Override
        public void login(Credentials credentials) {
@@ -38,11 +37,18 @@ public class MyApplicationToTest extends WebApplication implements ILogin,ILogou
        }
 
        @Override
-       public boolean isLoggedIn(String role) {
-           if (driver.getPageSource().contains("lifeIMAGE")) {
-           return true;
-       } else {
-           return false;
-       }
-       }
+     public boolean isLoggedIn() {
+        if (driver.getPageSource().contains("Tasks")) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+     public void navigate() {
+        openLoginPage();
+        login(Config.getInstance().getUsers().getDefaultCredentials());
+        //navigate the app
+     }
 }
+           
