@@ -21,7 +21,7 @@ import java.util.Properties;
 
 public class MyApplicationToTest extends WebApplication implements ILogin, ILogout {
 
-       public MyApplicationToTest() {
+       public RopeyTasksApplication() {
            super();
        }
 
@@ -48,4 +48,3 @@ public class MyApplicationToTest extends WebApplication implements ILogin, ILogo
        } else {
            return false;
        }
-}
