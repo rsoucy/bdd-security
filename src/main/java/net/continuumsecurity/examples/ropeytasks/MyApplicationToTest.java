@@ -48,4 +48,3 @@ public class MyApplicationToTest extends WebApplication implements ILogin, ILogo
        } else {
            return false;
        }
-}
