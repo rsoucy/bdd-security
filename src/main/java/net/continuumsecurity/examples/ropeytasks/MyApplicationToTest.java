@@ -20,13 +20,13 @@ import java.util.Map;
 import java.util.Properties;
 
 public class MyApplicationToTest extends WebApplication implements ILogin,ILogout {
-     @Override
+     //@Override
      public void openLoginPage() {
         driver.get(Config.getInstance().getBaseUrl() + "user/login");
         verifyTextPresent("Login");
      }
 
-       @Override
+       //@Override
        public void login(Credentials credentials) {
            UserPassCredentials creds = new UserPassCredentials(credentials);
            driver.findElement(By.id("login_username")).clear();
@@ -36,7 +36,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin,ILogou
            driver.findElement(By.name("submit")).click();
        }
 
-       @Override
+       //@Override
      public boolean isLoggedIn() {
         if (driver.getPageSource().contains("Tasks")) {
             return true;
