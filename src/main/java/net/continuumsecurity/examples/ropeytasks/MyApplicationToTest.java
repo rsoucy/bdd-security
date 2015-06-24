@@ -49,6 +49,13 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
         openLoginPage();
         login(Config.getInstance().getUsers().getDefaultCredentials());
         //navigate the app
+        driver.findElement(By.linkText("first last")).click();
+        driver.findElement(By.cssSelector("span.menu-item-name")).click();
+        driver.findElement(By.id("li_view_user_EditProfile_0-given-name")).clear();
+        driver.findElement(By.id("li_view_user_EditProfile_0-given-name")).sendKeys("Roger");
+        driver.findElement(By.id("li_view_user_EditProfile_0-family-name")).clear();
+        driver.findElement(By.id("li_view_user_EditProfile_0-family-name")).sendKeys("Soucy");
+        driver.findElement(By.id("li_widget_Button_3")).click();
      }
 }
            
