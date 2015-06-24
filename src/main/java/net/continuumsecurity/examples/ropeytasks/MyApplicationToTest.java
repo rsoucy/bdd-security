@@ -26,7 +26,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
         //verifyTextPresent("Login");
      }
 
-       //@Override
+       @Override
        public void login(Credentials credentials) {
            UserPassCredentials creds = new UserPassCredentials(credentials);
            driver.findElement(By.id("login_username")).clear();
@@ -36,7 +36,7 @@ public class MyApplicationToTest extends WebApplication implements ILogin {
            driver.findElement(By.name("submit")).click();
        }
 
-       //@Override
+       @Override
      public boolean isLoggedIn() {
         if (driver.getPageSource().contains("outbox")) {
             return true;
