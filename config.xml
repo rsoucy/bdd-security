@@ -57,7 +57,7 @@
         <api></api>
     </proxy> -->
 
-    <zapPath>zap/zap.sh</zapPath>
+    <zapPath>/tmp/jenkins/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ZAProxy_240/ZAP_2.4.0/zap.sh</zapPath>
 
     <displayStackTrace>true</displayStackTrace>
     <storyDir>src/main/stories/</storyDir>
